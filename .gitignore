@@ -50,6 +50,7 @@
 # Delphi history and backups
 __history/
 modules/
+ekrtf311_xe5/
 
 *.~*
 *.dcu
