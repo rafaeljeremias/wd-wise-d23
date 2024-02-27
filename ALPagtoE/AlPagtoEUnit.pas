@@ -57,6 +57,7 @@ implementation
 
 uses
   ItauUnit,
+  SafraUnit,
   SicrediUnit,
   SantanderUnit,
   BancoBrasilUnit;
@@ -99,6 +100,7 @@ begin
   begin
     case fLAYOUT of
       lyItau: fArquivo := TArquivoItau.Create;
+      lySafra: FArquivo := TArquivoSafra.Create;
       lySicredi: fArquivo := TArquivoSicredi.Create;
       lySantander: fArquivo := TArquivoSantander.Create;
       lyBancoBrasil: fArquivo := TArquivoBB.Create;

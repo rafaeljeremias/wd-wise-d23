@@ -3,7 +3,7 @@ unit ALConversao;
 interface
 
 type
-  TLayoutALPagtoE = (lyItau, lyBradesco, lySafra, lySicredi, lySantander, lyBancoBrasil);
+  TLayoutALPagtoE = (lyItau, lyBradesco, lySafra, lySicredi, lySantander, lyBancoBrasil, lyJSafra);
   TTipoOpALPagtoE = (toCredito, toFinanciamento);
   TTipoPagALPagtoE = (tpBloquetoEletronico, tpDividendos, tpDebentures, tpFornecedores, tpTributos, tpSalarios,
     tpSalariosPublico, tpFundosInvestimentos, tpSinistrosSeguros, tpDespesasViajante,
@@ -529,15 +529,15 @@ end;
 function LayoutToStr(const t: TLayoutALPagtoE): string;
 begin
   result := EnumeradoToStr(t,
-    ['341','237', '074', '748', '033', '001'],
-    [lyItau, lyBradesco, lySafra, lySicredi, lySantander, lyBancoBrasil])
+    ['341','237', '422', '748', '033', '001', '074'],
+    [lyItau, lyBradesco, lySafra, lySicredi, lySantander, lyBancoBrasil, lyJSafra])
 end;
 
 function StrToLayout(var ok: boolean; const s: string): TLayoutALPagtoE;
 begin
   result := StrToEnumerado(ok, s,
-    ['341','237', '074', '748', '033', '001'],
-    [lyItau, lyBradesco, lySafra, lySicredi, lySantander, lyBancoBrasil])
+    ['341','237', '422', '748', '033', '001', '074'],
+    [lyItau, lyBradesco, lySafra, lySicredi, lySantander, lyBancoBrasil, lyJSafra])
 end;
 
 function GPSPagamentoToStr(const t: TGPSPagamento): string;
