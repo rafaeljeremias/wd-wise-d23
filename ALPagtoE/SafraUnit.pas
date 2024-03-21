@@ -967,15 +967,15 @@ begin
             formataNumero(fCODIGO, 4) +                                                               //4
             '1C' +                                                                                    //8
             formataNumero(TipoPagToStr(fTP_PAGAMENTO),2) +                                            //10
-            '01'+ //formataNumero(FormaPagToStr(fFORMA_PAGAMENTO),2) +                                        //12
-            //ifthen((fFORMA_PAGAMENTO in [fpCreditoContaCorrenteBanco, fpChequePagamento, fpDocC,      //14
+            '01'+ //formataNumero(FormaPagToStr(fFORMA_PAGAMENTO),2) +                                //12
+            //ifthen((fFORMA_PAGAMENTO in [fpCreditoContaCorrenteBanco, fpChequePagamento, fpDocC,    //14
             //  fpCreditoContaPoupancaBanco, fpCreditoContaCorrenteTitular, fpDocD, fpTedOutroTitular,
             //  fpTedMesmoTitular, fpNotaFiscal]),'031', '030') +
             '045'+
             ' '+                                                                                      //17
             formataNumero(TipoInsToStr(fTP_INSCRICAO),1) +                                            //18
             formataNumero(fINSCRICAO, 14) +                                                           //19
-            formataAlfa(fLayoutSafra.CODIGO_CONVENIO, 20) +                                       //33
+            formataAlfa(fLayoutSafra.CODIGO_CONVENIO, 20) +                                           //33
             formataNumero(fAGENCIA, 5) +                                                              //53
             ' ' +                                                                                     //58
             formataNumero(fCONTA, 12) +                                                               //59
@@ -991,7 +991,8 @@ begin
             formataAlfa(fCIDADE,20) +                                                                 //193
             formataNumero(fCEP,8)+                                                                    //213
             formataAlfa(fESTADO,2) +                                                                  //221
-            formataAlfa(FinalidadeLoteToStr(fFINALIDADE_LOTE_PREFIXO),2) +                            //223
+            '  ' +
+            //formataAlfa(FinalidadeLoteToStr(fFINALIDADE_LOTE_PREFIXO),2) +                            //223
             DupeString(' ', 6) +                                                                      //225
             formataAlfa(fOCORRENCIAS, 10)+                                                            //231
             quebra_linha;
@@ -1494,7 +1495,8 @@ begin
              DupeString(' ',9) +                      //9
              formataNumero(fLoteListSafra.Count, 6) + //18
              formataNumero(fLinhas+1, 6) +            //24
-             DupeString(' ', 211);                    //30
+             DupeString('0', 6) +                     //30
+             DupeString(' ', 205);                    //36
 end;
 
 function TArquivoSafra.getLote(codigo : integer): TLoteSafra;
