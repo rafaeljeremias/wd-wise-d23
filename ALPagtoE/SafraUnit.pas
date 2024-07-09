@@ -967,7 +967,7 @@ begin
             formataNumero(fCODIGO, 4) +                                                               //4
             '1C' +                                                                                    //8
             formataNumero(TipoPagToStr(fTP_PAGAMENTO),2) +                                            //10
-            '01'+ //formataNumero(FormaPagToStr(fFORMA_PAGAMENTO),2) +                                //12
+            '31'+ //formataNumero(FormaPagToStr(fFORMA_PAGAMENTO),2) +                                //12
             //ifthen((fFORMA_PAGAMENTO in [fpCreditoContaCorrenteBanco, fpChequePagamento, fpDocC,    //14
             //  fpCreditoContaPoupancaBanco, fpCreditoContaCorrenteTitular, fpDocD, fpTedOutroTitular,
             //  fpTedMesmoTitular, fpNotaFiscal]),'031', '030') +
