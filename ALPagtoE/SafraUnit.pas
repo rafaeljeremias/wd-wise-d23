@@ -158,6 +158,7 @@ type
     fCODIGO_REMESSA: Integer;
     fDIGITO_AGENCIA: String;
     fDIGITO_CONTA: String;
+    fUltimoProcessadoJ: Boolean;
 
     procedure validaTipoForm(tipo : TTipoPagALPagtoE; forma :TFormaPagALPagtoE);
     procedure popularRetorno;
@@ -1133,16 +1134,28 @@ var
 begin
   segmento := copy(linha,  14, 1);
   if segmento = 'A' then
-    addLinhaSegmentoA(linha)
+  begin
+    addLinhaSegmentoA(linha);
+    fUltimoProcessadoJ := False;
+  end
   else
     if segmento = 'J' then
-      addLinhaSegmentoJ(linha)
+    begin
+      if not fUltimoProcessadoJ or (copy(linha, 18, 2) <> '52') then
+        addLinhaSegmentoJ(linha)
+      else
+        fUltimoProcessadoJ := False;
+    end
     else
+    begin
+      fUltimoProcessadoJ := False;
+
       if segmento = 'N' then
         addLinhaSegmentoN(linha)
       else
-        if segmento = 'O' then
+      if segmento = 'O' then
         addLinhaSegmentoO(linha)
+    end;
 end;
 
 procedure TArquivoSafra.addLinhaSegmentoA(linha: String);
@@ -1227,6 +1240,8 @@ begin
     segmentoJ.NOSSO_NUMERO := copy(linha, 216, 15);
     segmentoJ.OCORRENCIAS := copy(linha, 231, 10);
     lote.LISTSEGMENTOJ.Add(segmentoJ);
+
+    fUltimoProcessadoJ := True;
   end;
 end;
 
