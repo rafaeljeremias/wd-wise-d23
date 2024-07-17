@@ -4,7 +4,14 @@ unit SafraUnit;
 
 interface
 
-uses Alconversao, Controls, Contnrs, AlComum;
+uses
+  Math,
+  Controls,
+  Contnrs,
+  AlComum,
+  StrUtils,
+  SysUtils,
+  Alconversao;
 
 const
   quebra_linha = #13#10;
@@ -649,7 +656,7 @@ type
 
 implementation
 
-uses StrUtils, SysUtils, Classes, DateUtils;
+uses Classes, DateUtils;
 
 { TSegmentoAList }
 
@@ -1216,6 +1223,8 @@ var
   lote : TLoteSafra;
   segmentoJ : TSegmentoJ;
   ok : boolean;
+  LValorDesconto: string;
+  LPossuiSinalNegativo: Boolean;
 begin
   lote := getLote(StrToInt(copy(linha, 4, 4)));
   if lote <> nil then
@@ -1232,7 +1241,16 @@ begin
     segmentoJ.NOME_FAVORECIDO := copy(linha, 62, 30);
     segmentoJ.DATA_VENCIMENTO := paraData(copy(linha, 92, 8));
     segmentoJ.VALOR_TITULO := paraDouble(copy(linha, 100, 15), 2);
-    segmentoJ.DESCONTOS := paraDouble(copy(linha, 115, 15), 2);
+
+    LValorDesconto := copy(linha, 115, 15);
+    LPossuiSinalNegativo := Pos('-', LValorDesconto) > 0;
+
+    if LPossuiSinalNegativo then
+      LValorDesconto := AnsiReplaceStr(LValorDesconto, '-', '');
+
+    segmentoJ.DESCONTOS := paraDouble(LValorDesconto, 2) *
+                           ifThen(LPossuiSinalNegativo, -1, 1);
+
     segmentoJ.ACRESCIMOS := paraDouble(copy(linha, 130, 15), 2);
     segmentoJ.DATA_PAGAMENTO := paraData(copy(linha, 145, 8));
     segmentoJ.VALOR_PAGAMENTO := paraDouble(copy(linha, 153, 15), 2);
