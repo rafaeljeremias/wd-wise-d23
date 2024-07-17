@@ -16,7 +16,7 @@ uses
 const
   quebra_linha = #13#10;
 
-  TOcorrenciaSafraString : array[0..113] of array [0..3] of String =
+  TOcorrenciaSafraString : array[0..114] of array [0..3] of String =
   (('00','CREDITO OU DEBITO EFETIVADO', '0', '00'),
   ('01','INSUFICIENCIA DE FUNDOS - DEBITO NAO EFETUADO', '1', 'RJ'),
   ('02','CREDITO OU DEBITO CANCELADO PELO PAGADOR/CREDOR', '1', 'RJ'),
@@ -64,6 +64,7 @@ const
   ('CD','CODIGO DE BARRAS - VALOR DO TITULO INVALIDO','1', 'RJ'),
   ('CE','CODIGO DE BARRAS - CAMPO LIVRE INVALIDO','1', 'RJ'),
   ('CF','VALOR DO DOCUMENTO/PRINCIPAL/MENOR QUE O MINIMO INVALIDO','1', 'RJ'),
+  ('CG','VALOR DO ABATIMENTO INVALIDO', '1', 'RJ'),
   ('CH','VALOR DO DESCONTO INVALIDO','1', 'RJ'),
   ('CI','VALOR DE MORA INVALIDO','1', 'RJ'),
   ('CJ','VALOR DA MULTA INVALIDO','1', 'RJ'),
@@ -835,7 +836,7 @@ begin
       if self.FORMA_PAGAMENTO in [fpPagamentoConcessionarias, fpGnreTributosBarras] then
         AddSegmentoO(pagamento)
       else
-        Raise Exception.Create('Forma de pagamento n o implementada');
+        Raise Exception.Create('Forma de pagamento não implementada');
 end;
 
 procedure TLoteSafra.AddSegmentoA(const pagamento: TPagamentoAlPagtoE);
@@ -1598,7 +1599,7 @@ begin
     end
   end;
   r.codigo := 'XXX';
-  r.descricao := 'Ocorrencia n o encontrada';
+  r.descricao := 'Ocorrencia não encontrada';
   r.resultado := false;
   result := r;
 end;
@@ -1961,12 +1962,12 @@ begin
     formataNumero(TipoInsToStr(fTP_INSCRICAO_BENEFICIARIO),1)+     // 76
     formataNumero(INSCRICAO_BENEFICIARIO,15)+                      // 77
     formataAlfa(NOME_BENEFICIARIO, 40)+                            // 92
-    formataNumero(TipoInsToStr(fTP_INSCRICAO_AVALISTA),1)+         // 132 tipo de inscri  o sacador
+    formataNumero(TipoInsToStr(fTP_INSCRICAO_AVALISTA),1)+         // 132 tipo de inscrição sacador
     formataNumero(INSCRICAO_AVALISTA,15)+                          // 133 cpf/cnpj do sacador
     formataAlfa(NOME_AVALISTA, 40)+                                // 148 nome do sacador
     DupeString(' ',53)+                                            // brancos
-// essa parte comentada s o mudan a para j52 pix
-//    DupeString(FUrlChaveEnderecamento, 79) +                       // 132 - URL/Chave de endere amento
+// essa parte comentada são mudança para j52 pix
+//    DupeString(FUrlChaveEnderecamento, 79) +                       // 132 - URL/Chave de endereçamento
 //    DupeString(FTXID, 30) +                                        // 211 - TXID
     quebra_linha;
 end;
@@ -2296,7 +2297,6 @@ end;
 procedure TTributoFGTS.setTributoStr(identificacao: String);
 var
   ok : boolean;
-
 begin
   fRECEITA := StrToInt(copy(identificacao, 3, 4));
   fTP_INSCRICAO := StrToTipoIns(ok, copy(identificacao, 7, 1));
