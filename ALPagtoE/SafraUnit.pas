@@ -835,7 +835,7 @@ begin
       if self.FORMA_PAGAMENTO in [fpPagamentoConcessionarias, fpGnreTributosBarras] then
         AddSegmentoO(pagamento)
       else
-        Raise Exception.Create('Forma de pagamento não implementada');
+        Raise Exception.Create('Forma de pagamento n o implementada');
 end;
 
 procedure TLoteSafra.AddSegmentoA(const pagamento: TPagamentoAlPagtoE);
@@ -1598,7 +1598,7 @@ begin
     end
   end;
   r.codigo := 'XXX';
-  r.descricao := 'Ocorrencia não encontrada';
+  r.descricao := 'Ocorrencia n o encontrada';
   r.resultado := false;
   result := r;
 end;
@@ -1961,12 +1961,12 @@ begin
     formataNumero(TipoInsToStr(fTP_INSCRICAO_BENEFICIARIO),1)+     // 76
     formataNumero(INSCRICAO_BENEFICIARIO,15)+                      // 77
     formataAlfa(NOME_BENEFICIARIO, 40)+                            // 92
-    formataNumero(TipoInsToStr(fTP_INSCRICAO_AVALISTA),1)+         // 132 tipo de inscrição sacador
+    formataNumero(TipoInsToStr(fTP_INSCRICAO_AVALISTA),1)+         // 132 tipo de inscri  o sacador
     formataNumero(INSCRICAO_AVALISTA,15)+                          // 133 cpf/cnpj do sacador
     formataAlfa(NOME_AVALISTA, 40)+                                // 148 nome do sacador
     DupeString(' ',53)+                                            // brancos
-// essa parte comentada são mudança para j52 pix
-//    DupeString(FUrlChaveEnderecamento, 79) +                       // 132 - URL/Chave de endereçamento
+// essa parte comentada s o mudan a para j52 pix
+//    DupeString(FUrlChaveEnderecamento, 79) +                       // 132 - URL/Chave de endere amento
 //    DupeString(FTXID, 30) +                                        // 211 - TXID
     quebra_linha;
 end;
@@ -2296,6 +2296,7 @@ end;
 procedure TTributoFGTS.setTributoStr(identificacao: String);
 var
   ok : boolean;
+
 begin
   fRECEITA := StrToInt(copy(identificacao, 3, 4));
   fTP_INSCRICAO := StrToTipoIns(ok, copy(identificacao, 7, 1));
